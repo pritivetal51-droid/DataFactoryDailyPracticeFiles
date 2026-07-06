@@ -1,0 +1,607 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-clinctrial-dev"
+		},
+		"ls_adls_gen_2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_gen_2'"
+		},
+		"ls_azuresql_clintrial_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_azuresql_clintrial'"
+		},
+		"ls_sqlserver_healthconnect_raw_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sqlserver_healthconnect_raw'"
+		},
+		"ls_adls_gen_2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stclinctraildev.dfs.core.windows.net/"
+		},
+		"ls_azuresql_clintrial_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-clinctrial-dev.database.windows.net"
+		},
+		"ls_azuresql_clintrial_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-clintrial-dev"
+		},
+		"ls_azuresql_clintrial_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "CloudSAa089d679"
+		},
+		"ls_sqlserver_healthconnect_raw_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost\\SQLEXPRESS"
+		},
+		"ls_sqlserver_healthconnect_raw_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dev_Healthconnect_raw"
+		},
+		"ls_sqlserver_healthconnect_raw_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DESKTOP-LR9UMUI\\Priti"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_dm_srcfile_raw')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_dm_srcfile_raw",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_adls_srcfiles",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_adls_raw",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "src_raw_data_load"
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-07-04T09:56:53Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_adls_srcfiles')]",
+				"[concat(variables('factoryId'), '/datasets/ds_adls_raw')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_invoices_azuresql_adls')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_invoices_azuresql_adls",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_invoice_azuresql",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_invoice_adls",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "src_raw_data_load"
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-07-06T08:38:58Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_invoice_azuresql')]",
+				"[concat(variables('factoryId'), '/datasets/ds_invoice_adls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_sqlsever_claims_azuresqldb')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_sqlsever_claims_azuresqldb",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_sqlserver_cliam",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_azuresqldb_cliam",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "sqlserver_azuredb_load"
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-07-06T10:44:46Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sqlserver_cliam')]",
+				"[concat(variables('factoryId'), '/datasets/ds_azuresqldb_cliam')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_raw')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_gen_2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "raw/DM",
+						"fileSystem": "cr-clintrial"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_gen_2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_srcfiles')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_gen_2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dm_20260704.csv",
+						"folderPath": "sourcefile/DM",
+						"fileSystem": "cr-clintrial"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_gen_2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_azuresqldb_cliam')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_azuresql_clintrial",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "raw",
+					"table": "patient"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azuresql_clintrial')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_invoice_adls')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_gen_2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "invoice.csv",
+						"folderPath": "azuresql_db",
+						"fileSystem": "cr-clintrial"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_gen_2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_invoice_azuresql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_azuresql_clintrial",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "invoice_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "invoice_number",
+						"type": "nvarchar"
+					},
+					{
+						"name": "customer_id",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "invoice_date",
+						"type": "date"
+					},
+					{
+						"name": "due_date",
+						"type": "date"
+					},
+					{
+						"name": "subtotal_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "discount_code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "discount_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "tax_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "total_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "payment_status",
+						"type": "nvarchar"
+					},
+					{
+						"name": "payment_method",
+						"type": "nvarchar"
+					},
+					{
+						"name": "payment_date",
+						"type": "date"
+					},
+					{
+						"name": "currency",
+						"type": "nvarchar"
+					},
+					{
+						"name": "region",
+						"type": "nvarchar"
+					},
+					{
+						"name": "store_id",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "channel",
+						"type": "nvarchar"
+					},
+					{
+						"name": "created_by",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "raw",
+					"table": "invoice"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azuresql_clintrial')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sqlserver_cliam')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sqlserver_healthconnect_raw",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "claim_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "encounter_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "payer_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "admit_date",
+						"type": "date"
+					},
+					{
+						"name": "discharge_date",
+						"type": "date"
+					},
+					{
+						"name": "total_billed_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "total_allowed_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "total_paid_amount",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "claim_status",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "raw_claims"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_healthconnect_raw')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adls_gen_2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_adls_gen_2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_adls_gen_2_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_azuresql_clintrial')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_azuresql_clintrial_properties_typeProperties_server')]",
+					"database": "[parameters('ls_azuresql_clintrial_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_azuresql_clintrial_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_azuresql_clintrial_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_sqlserver_healthconnect_raw')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('ls_sqlserver_healthconnect_raw_properties_typeProperties_server')]",
+					"database": "[parameters('ls_sqlserver_healthconnect_raw_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "Windows",
+					"userName": "[parameters('ls_sqlserver_healthconnect_raw_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_sqlserver_healthconnect_raw_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "shri-local-computer",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/shri-local-computer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/shri-local-computer')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		}
+	]
+}
