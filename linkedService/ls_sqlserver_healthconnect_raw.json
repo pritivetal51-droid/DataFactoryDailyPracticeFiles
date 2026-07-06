@@ -1,0 +1,21 @@
+{
+	"name": "ls_sqlserver_healthconnect_raw",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "localhost\\SQLEXPRESS",
+			"database": "dev_Healthconnect_raw",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "Windows",
+			"userName": "DESKTOP-LR9UMUI\\Priti",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkMjdhMDdiNy0wNjA0LTRjYzEtYTMyOS00ZTYyYzBiMzEyZTUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "shri-local-computer",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
