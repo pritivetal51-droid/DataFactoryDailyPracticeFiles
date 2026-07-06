@@ -1,0 +1,60 @@
+{
+	"name": "ds_sqlserver_cliam",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sqlserver_healthconnect_raw",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "claim_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "encounter_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "payer_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "admit_date",
+				"type": "date"
+			},
+			{
+				"name": "discharge_date",
+				"type": "date"
+			},
+			{
+				"name": "total_billed_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "total_allowed_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "total_paid_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "claim_status",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "raw_claims"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,15 @@
+{
+	"name": "adf-clinctrial-dev",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "05fd6463-60d1-4002-98a1-f33042ece8d4",
+		"tenantId": "bd9c0250-9f41-47f1-82e9-0d440a6b39e8"
+	}
+}

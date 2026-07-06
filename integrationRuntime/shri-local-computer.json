@@ -1,0 +1,6 @@
+{
+	"name": "shri-local-computer",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

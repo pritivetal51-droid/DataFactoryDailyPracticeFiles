@@ -1,0 +1,96 @@
+{
+	"name": "ds_invoice_azuresql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_azuresql_clintrial",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "invoice_id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "invoice_number",
+				"type": "nvarchar"
+			},
+			{
+				"name": "customer_id",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "invoice_date",
+				"type": "date"
+			},
+			{
+				"name": "due_date",
+				"type": "date"
+			},
+			{
+				"name": "subtotal_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "discount_code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "discount_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "tax_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "total_amount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "payment_status",
+				"type": "nvarchar"
+			},
+			{
+				"name": "payment_method",
+				"type": "nvarchar"
+			},
+			{
+				"name": "payment_date",
+				"type": "date"
+			},
+			{
+				"name": "currency",
+				"type": "nvarchar"
+			},
+			{
+				"name": "region",
+				"type": "nvarchar"
+			},
+			{
+				"name": "store_id",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "channel",
+				"type": "nvarchar"
+			},
+			{
+				"name": "created_by",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "raw",
+			"table": "invoice"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
