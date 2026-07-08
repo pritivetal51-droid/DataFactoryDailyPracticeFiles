@@ -15,11 +15,11 @@
 		"typeProperties": {
 			"server": "@{linkedService().pLSservername}",
 			"database": "@{linkedService().pLsDatabaseName}",
-			"encrypt": "mandatory",
+			"encrypt": "optional",
 			"trustServerCertificate": false,
 			"authenticationType": "SQL",
 			"userName": "adf_login",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0MWNiZjQwYS01MTQyLTQ0YzgtOGE1My1hYzkyM2U2MjI3MTEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1OWY3MDUxOS05NmY0LTQ0NTAtYmMyYS0wN2JjYmRlY2JlNDMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "shri-local-computer",
