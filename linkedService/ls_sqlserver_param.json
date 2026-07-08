@@ -19,7 +19,7 @@
 			"trustServerCertificate": false,
 			"authenticationType": "SQL",
 			"userName": "adf_login",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1OWY3MDUxOS05NmY0LTQ0NTAtYmMyYS0wN2JjYmRlY2JlNDMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0YmFmODFmNi0zNzIzLTRlZDktODIwNS03Yjg1MjE5ZWQ0YzgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "shri-local-computer",
