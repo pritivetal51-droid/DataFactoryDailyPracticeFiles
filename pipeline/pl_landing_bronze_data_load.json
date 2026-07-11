@@ -50,6 +50,7 @@
 						"value": "@activity('Lookup_Bronze_Control_Table').output.value",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Notebook_Landing_Bronze",
