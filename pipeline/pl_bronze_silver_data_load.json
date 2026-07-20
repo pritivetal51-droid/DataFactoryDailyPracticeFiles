@@ -53,7 +53,7 @@
 		"parameters": {
 			"pPlServerName": {
 				"type": "string",
-				"defaultValue": "localhost\\EXPRESS"
+				"defaultValue": "localhost\\SQLEXPRESS"
 			},
 			"pPlDatabaseName": {
 				"type": "string",
