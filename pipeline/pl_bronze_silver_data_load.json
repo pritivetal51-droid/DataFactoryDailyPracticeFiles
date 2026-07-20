@@ -48,6 +48,60 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "ForEach_Domain_Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_bronze_silver_control_tab",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup_bronze_silver_control_tab').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Notebook_Domain",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/pritivetal51@gmail.com/intellibi_databricks_clintrail/bronze_silver_load/nb_bronze_silver_load",
+								"baseParameters": {
+									"domain ": "@item().Domain",
+									"srcCatalog ": "@item().SrcCatalog",
+									"srcTableName": {
+										"value": "@item().SrcTableName",
+										"type": "Expression"
+									},
+									" tgtCatalog": "@item().TgtCatalog",
+									" tgtSchema": "@item().TgtSchema",
+									"tgtTableName": "@item().TgtTableName",
+									"businessKey": "@item().BusinessKey"
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_databricks_clintrial",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
