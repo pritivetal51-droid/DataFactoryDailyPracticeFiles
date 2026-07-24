@@ -17,6 +17,62 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "Web_Success",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Execute_Pipeline_Clintrial_Master",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-18.centralindia.logic.azure.com:443/workflows/837b67eee3b44b2cab612837f4e2be12/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=GhuDdQUEwIbo7jEEKoxlqY1i5QAV-adWajatJQiqzIc",
+					"body": {
+						"value": "{\n    \"Status\" : \"Success\",\n    \"PipeLineName\" : \"@{pipeline().Pipeline}\",\n    \"StartTime\" : \"@{pipeline().TriggerTime}\",\n    \"EndTime\" : \"@{utcNow()}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Web_Failed",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Execute_Pipeline_Clintrial_Master",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-18.centralindia.logic.azure.com:443/workflows/837b67eee3b44b2cab612837f4e2be12/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=GhuDdQUEwIbo7jEEKoxlqY1i5QAV-adWajatJQiqzIc",
+					"body": {
+						"value": "{\n    \"Status\" : \"Failed\",\n    \"PipeLineName\" : \"@{pipeline().Pipeline}\",\n    \"ErrorMsg\" : \"@{activity('Execute_Pipeline_Clintrial_Master').Error?.Message}\n}",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"folder": {
