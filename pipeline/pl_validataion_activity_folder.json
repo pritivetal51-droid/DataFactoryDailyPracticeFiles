@@ -1,0 +1,28 @@
+{
+	"name": "pl_validataion_activity_folder",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation1",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_srcfiles",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.12:00:00",
+					"sleep": 10,
+					"childItems": true
+				}
+			}
+		],
+		"folder": {
+			"name": "my_practice"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-06-25T02:32:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
