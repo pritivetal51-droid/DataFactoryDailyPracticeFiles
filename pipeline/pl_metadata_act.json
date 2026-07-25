@@ -19,7 +19,9 @@
 						"referenceName": "ds_adls_srcfiles",
 						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"exists"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
