@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "invoice.csv",
-				"folderPath": "azuresql_db",
+				"folderPath": "sourcefile/CM",
 				"fileSystem": "cr-clintrial"
 			},
 			"columnDelimiter": ",",
