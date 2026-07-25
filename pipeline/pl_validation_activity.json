@@ -12,7 +12,7 @@
 						"referenceName": "ds_adls_srcfiles",
 						"type": "DatasetReference"
 					},
-					"timeout": "0.00:30:00",
+					"timeout": "0.00:05:00",
 					"sleep": 20,
 					"minimumSize": 1
 				}
@@ -71,7 +71,7 @@
 			}
 		],
 		"folder": {
-			"name": "for_each_activity"
+			"name": "my_practice"
 		},
 		"annotations": [],
 		"lastPublishTime": "2026-06-25T02:18:58Z"
