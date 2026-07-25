@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "GET",
-					"url": "https://api.wiseapp.live/institutes/672a0918ae3d6e9fadfbc622/classes"
+					"url": "https://jsonplaceholder.typicode.com/posts"
 				}
 			}
 		],
