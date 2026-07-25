@@ -1,0 +1,63 @@
+{
+	"name": "pl_filter_activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetMetadataSourceFilesDetails",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_srcfiles",
+						"type": "DatasetReference"
+					},
+					"fieldList": [],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Filter_ind_usa",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "GetMetadataSourceFilesDetails",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetMetadataSourceFilesDetails').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@or(\n    contains(\n             item().name,'ind'\n            ),\n        contains(\n             item().name,'usa'\n            )\n    )\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "for_each_activity"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-06-24T02:30:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
