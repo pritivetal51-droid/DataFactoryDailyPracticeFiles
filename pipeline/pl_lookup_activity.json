@@ -29,7 +29,8 @@
 							"pDsSchemaName": "edcsrcmetadata",
 							"pDsTableName": "srcEdcClintrailToLandControl"
 						}
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
