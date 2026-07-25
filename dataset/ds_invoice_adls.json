@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sourcefile/CM",
+				"fileName": "lookup.txt",
+				"folderPath": "sourcefile/DM",
 				"fileSystem": "cr-clintrial"
 			},
 			"columnDelimiter": ",",
