@@ -24,7 +24,7 @@
 						"referenceName": "ds_sqlserverTableaParam",
 						"type": "DatasetReference",
 						"parameters": {
-							"pDsServerName": "localhost\\SQLEXPREES",
+							"pDsServerName": "localhost\\SQLEXPRESS",
 							"pDsDatabaseName": "dev_clintrail_edc_src",
 							"pDsSchemaName": "edcsrcmetadata",
 							"pDsTableName": "srcEdcClintrailToLandControl"
