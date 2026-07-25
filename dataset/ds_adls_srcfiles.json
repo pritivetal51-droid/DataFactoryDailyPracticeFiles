@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sourcefile/CM",
+				"folderPath": "sourcefile/DM",
 				"fileSystem": "cr-clintrial"
 			}
 		}
