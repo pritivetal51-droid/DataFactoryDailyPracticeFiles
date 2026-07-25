@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "customer_ind.csv",
-				"folderPath": "sourcefile/DM",
+				"folderPath": "sourcefile/CM",
 				"fileSystem": "cr-clintrial"
 			}
 		}
