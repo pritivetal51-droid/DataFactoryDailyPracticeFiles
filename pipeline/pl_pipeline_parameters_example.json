@@ -64,11 +64,11 @@
 		"parameters": {
 			"pPlSourceContainerName": {
 				"type": "string",
-				"defaultValue": "cr-clintrail"
+				"defaultValue": "cr-clintrial"
 			},
 			"pPlSourceFolderPath": {
 				"type": "string",
-				"defaultValue": "sourcefiles/DM"
+				"defaultValue": "sourcefile/DM"
 			},
 			"pPlSourceFilename": {
 				"type": "string"
