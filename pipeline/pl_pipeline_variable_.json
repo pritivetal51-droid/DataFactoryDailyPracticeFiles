@@ -43,13 +43,25 @@
 				"inputs": [
 					{
 						"referenceName": "ds_adls_srcfiles",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"pSourceFileName": {
+								"value": "@pipeline().parameters.pPlSourceFilename",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_adls_targetfiles",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"pTargetFileName": {
+								"value": "@pipeline().parameters.pPlTargetFilename",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -71,6 +83,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"pPlSourceFilename": {
+				"type": "string"
+			},
+			"pPlTargetFilename": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"vCurrTimeStamp": {
 				"type": "String"
