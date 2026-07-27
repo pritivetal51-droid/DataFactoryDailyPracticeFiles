@@ -35,7 +35,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_adls_srcfiles",
+						"referenceName": "ds_adls_sourcefile",
 						"type": "DatasetReference"
 					}
 				],
