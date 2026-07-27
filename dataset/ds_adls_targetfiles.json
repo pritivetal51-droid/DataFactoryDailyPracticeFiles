@@ -5,11 +5,20 @@
 			"referenceName": "ls_adls_gen_2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"pTargetFileName": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().pTargetFileName",
+					"type": "Expression"
+				},
 				"folderPath": "targetfiles/Customer",
 				"fileSystem": "cr-sink-clintrail"
 			}

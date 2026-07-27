@@ -3,6 +3,23 @@
 	"properties": {
 		"activities": [
 			{
+				"name": "setvartargetfile",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vCurrTimeStamp",
+					"value": {
+						"value": "@formatDateTime(utcNow(),'yyyyMMddHHmmss')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
 				"name": "copy_sourcefile_to_targetfiles",
 				"type": "Copy",
 				"dependsOn": [
@@ -26,7 +43,7 @@
 						"type": "BinarySource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true
+							"recursive": false
 						},
 						"formatSettings": {
 							"type": "BinaryReadSettings"
@@ -52,23 +69,6 @@
 						"type": "DatasetReference"
 					}
 				]
-			},
-			{
-				"name": "setvartargetfile",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "vCurrTimeStamp",
-					"value": {
-						"value": "@utcNow()",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"variables": {
