@@ -45,6 +45,10 @@
 							"FolderPath": {
 								"value": "@pipeline().parameters.pPlSourceFolderPath",
 								"type": "Expression"
+							},
+							"FileName": {
+								"value": "@pipeline().parameters.pPlSourceFilename",
+								"type": "Expression"
 							}
 						}
 					}
