@@ -15,6 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().pTargetFileName",
+					"type": "Expression"
+				},
 				"folderPath": "targetfiles/Customer",
 				"fileSystem": "cr-sink-clintrail"
 			}

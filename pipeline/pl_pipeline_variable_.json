@@ -58,7 +58,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"pTargetFileName": {
-								"value": "@pipeline().parameters.pPlTargetFilename",
+								"value": "@concat('Cust_',variables('vCurrTimeStamp'),'.csv')",
 								"type": "Expression"
 							}
 						}
