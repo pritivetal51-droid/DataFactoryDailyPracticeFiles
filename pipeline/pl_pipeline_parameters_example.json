@@ -1,0 +1,79 @@
+{
+	"name": "pl_pipeline_parameters_example",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_srcfiles",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_targetfiles",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"pPlSourceContainerName": {
+				"type": "string",
+				"defaultValue": "cr-clintrail"
+			},
+			"pPlSourceFolderPath": {
+				"type": "string",
+				"defaultValue": "sourcefiles/DM"
+			},
+			"pPlSourceFilename": {
+				"type": "string"
+			},
+			"pPlTargetContainerName": {
+				"type": "string",
+				"defaultValue": "cr-sink-clintrail"
+			},
+			"pPlTargetFolderPath": {
+				"type": "string",
+				"defaultValue": "targetfiles/Customer"
+			},
+			"pPlTargetFilename": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "my_practice"
+		},
+		"annotations": []
+	}
+}
