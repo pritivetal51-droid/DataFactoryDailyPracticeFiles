@@ -36,7 +36,17 @@
 				"inputs": [
 					{
 						"referenceName": "ds_adls_sourcefile",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": {
+								"value": "@pipeline().parameters.pPlSourceContainerName",
+								"type": "Expression"
+							},
+							"FolderPath": {
+								"value": "@pipeline().parameters.pPlSourceFolderPath",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [

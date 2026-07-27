@@ -5,13 +5,34 @@
 			"referenceName": "ls_adls_gen_2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"ContainerName": {
+				"type": "String"
+			},
+			"FolderPath": {
+				"type": "String"
+			},
+			"FileName": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sourcefile/DM",
-				"fileSystem": "cr-clintrial"
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().FolderPath",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().ContainerName",
+					"type": "Expression"
+				}
 			}
 		}
 	}
