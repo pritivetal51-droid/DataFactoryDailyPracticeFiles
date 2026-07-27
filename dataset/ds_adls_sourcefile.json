@@ -21,18 +21,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().FileName",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().FolderPath",
-					"type": "Expression"
-				},
-				"fileSystem": {
-					"value": "@dataset().ContainerName",
-					"type": "Expression"
-				}
+				"fileName": "customer_ind.csv",
+				"folderPath": "sourcefile/DM",
+				"fileSystem": "cr-clintrial"
 			}
 		}
 	}
